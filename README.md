@@ -1,5 +1,28 @@
 # This application is a light version of the idea how may look an app for learning something
 
+## Technologies used:
+ - React + TypeScript
+ - Material UI 5 for UI components
+ - react-router-dom for routing
+ - @reduxjs/toolkit to write Redux logic
+ - Sass for styles (but 99% of the styles are covered by MUI with custom style theme)
+ - Firebase for auth (firebase package for React) and hosting
+ - Firestore as a DB
+
+Tests coverage is not implemented, but idea was RTL, Jest.
+
+## Pages
+ - Page with the list of courses. Included list of courses (Course includes title, short description,
+   duration(amount of lessons), language, level(green, orange, red and black colors)) and filters (possibility to filter by title, level and language).
+   List is saved in redux store and updates each time when any filter is changed. Clicking by 'View course' button we go to the page of the course.
+ - Page of the course. Includes the same title, a large description (actually not very large) and section with comments.
+   Only authorized users may leave the comments. Course data is not saved in redux, it is being loaded by id each time we open the page
+   (to simulate real request to DB to load the whole data).
+ - Create account/Login. It is a pop up with email/password fields for login and also display name for sign up (name is displayed when user leaves a comment).
+   This is done with firebase.
+
+   All pages are responsive.
+
 ## Available Scripts
 
 In the project directory, you can run:
