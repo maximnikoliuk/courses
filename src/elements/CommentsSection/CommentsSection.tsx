@@ -114,6 +114,6 @@ function CommentsSection() {
       }
     </Container>
   );
-};
+}
 
 export default CommentsSection;

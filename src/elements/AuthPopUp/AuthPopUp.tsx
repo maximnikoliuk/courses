@@ -178,6 +178,6 @@ function AuthPopUp ({dialogData, setDialogData}: AuthPopUpProps) {
       </DialogActions>
     </Dialog>
   )
-};
+}
 
 export default AuthPopUp;
