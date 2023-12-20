@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+input[name="authUserEmail"]:-webkit-autofill,
+input[name="authUserPassword"]:-webkit-autofill,
+input[name="authDisplayName"]:-webkit-autofill {
+  -webkit-background-clip: text;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 40px 40px var(--grey10);
+}
