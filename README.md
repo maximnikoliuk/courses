@@ -9,7 +9,7 @@
  - Firebase for auth (firebase package for React) and hosting
  - Firestore as a DB
 
-Tests coverage is not implemented, but idea was RTL, Jest.
+    Tests coverage is not implemented, but idea was RTL, Jest. Also needed good error handling, currently only few nofifications appear when error.
 
 ## Pages
  - Page with the list of courses. Included list of courses (Course includes title, short description,
