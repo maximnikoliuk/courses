@@ -5,7 +5,7 @@
  - Material UI 5 for UI components
  - react-router-dom for routing
  - @reduxjs/toolkit to write Redux logic
- - Sass for styles (but 99% of the styles are covered by MUI with custom style theme)
+ - Sass for styles (but 99% of the styles are covered by MUI, some of them are overridden with custom style theme)
  - Firebase for auth (firebase package for React) and hosting
  - Firestore as a DB
 
