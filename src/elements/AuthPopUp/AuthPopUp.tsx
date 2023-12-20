@@ -23,8 +23,10 @@ function AuthPopUp ({dialogData, setDialogData}: AuthPopUpProps) {
     password: '',
     displayName: ''
   });
-  const disabledLoginBtn = !(credentials.email && credentials.password);
-  const disabledRegisterBtn = !(credentials.email && credentials.password && credentials.displayName);
+  const emailRegex = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+  const isEmailValid = credentials.email && emailRegex.test(credentials.email);
+  const disabledLoginBtn = !(isEmailValid && credentials.password);
+  const disabledRegisterBtn = !(isEmailValid && credentials.password && credentials.displayName);
   const disabledButton = dialogData.type === AUTH_OPERATIONS.CREATE ? disabledRegisterBtn : disabledLoginBtn;
   const [showPassword, setShowPassword] = useState(false);
 
