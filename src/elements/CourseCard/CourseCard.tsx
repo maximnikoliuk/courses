@@ -31,7 +31,7 @@ function CourseCard ({ courseData }: CourseCardProps) {
           }}
       >
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h5">
+          <Typography className="course-title" gutterBottom variant="h5">
             {title}
           </Typography>
           <Stack direction="row" spacing={1} mb={1}>

@@ -10,7 +10,6 @@ export const AuthContext = React.createContext<Partial<ContextProps>>({});
 
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState(null as User | null);
-  console.log(user, "user");
 
   useEffect(() => {
     auth.onAuthStateChanged((user: any) => {

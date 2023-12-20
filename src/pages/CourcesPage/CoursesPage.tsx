@@ -3,12 +3,13 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import CourseCard from '../../elements/CourseCard/CourseCard';
 import Typography from '@mui/material/Typography';
+import { and, collection, getDocs, getFirestore, query, where } from 'firebase/firestore/lite';
 import FiltersSection from '../../elements/FiltersSection/FiltersSection';
 import { useAppSelector, useAppDispatch } from '../../redux/store';
 import { StateCourse } from '../../types/CoursesTypes';
-import { collection, getDocs, getFirestore } from 'firebase/firestore/lite';
 import { app } from '../../firebase/firebase';
 import { setCourses } from '../../redux/sliceCourses';
+import { COURSE_LEVELS } from '../../utils/constants';
 
 function CoursesPage () {
   const dispatch = useAppDispatch();
@@ -19,25 +20,46 @@ function CoursesPage () {
       (state) => state.filters,
   );
 
-  const filterCourses = (courses: StateCourse[]) => {
-    return courses.filter(course => course.title.toLowerCase().includes(filtersList.title.toLocaleLowerCase()) &&
-        (filtersList.level === 'ALL' || course.difficultyLevel === filtersList.level) &&
-        (filtersList.language === 'ALL' || course.language === filtersList.language));
+  const getFiltersQueries = () => {
+    const queries = [];
+    if (filtersList.title) {
+      queries.push(
+          and(
+              where("title", ">=", filtersList.title.toLowerCase()),
+              where("title", "<=", `${filtersList.title.toLowerCase()}\uf8ff`)
+          )
+      );
+    }
+    if (filtersList.level !== COURSE_LEVELS.ALL) {
+      queries.push(
+          where("difficultyLevel", "==", filtersList.level)
+      );
+    }
+    if (filtersList.language !== COURSE_LEVELS.ALL) {
+      queries.push(
+          where("language", "==", filtersList.language)
+      );
+    }
+    return queries;
   };
 
   const getCourses = async () => {
+    const queries = getFiltersQueries();
     let courses: StateCourse[] = [];
     const db = getFirestore(app);
     const coursesCollection = collection(db, 'courses');
-    const coursesSnapshot = await getDocs(coursesCollection);
+    let coursesSnapshot;
+    if (queries.length > 0) {
+      const coursesQuery = query(coursesCollection, and(...queries));
+      coursesSnapshot = await getDocs(coursesQuery)
+    } else {
+      coursesSnapshot = await getDocs(coursesCollection)
+    }
     coursesSnapshot.forEach(doc => {
       let course = doc.data() as StateCourse;
       courses.push(course);
     });
-    // Each time we load all the courses to simulate normal request to DB and then
-    // filter them on front end side. IT IS NOT A GOOD WAY but firestore queries are not flexible when we have few filters
-    const filteredCourses = filterCourses(courses);
-    dispatch(setCourses(filteredCourses));
+    dispatch(setCourses(courses));
   };
 
   useEffect(() => {

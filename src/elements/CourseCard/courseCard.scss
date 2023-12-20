@@ -11,4 +11,9 @@
   &.extreme {
     border-left: 5px solid #261c00;
   }
+  .course-title {
+    &:first-letter {
+      text-transform: capitalize;
+    }
+  }
 }
